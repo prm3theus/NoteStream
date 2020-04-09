@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 
 import moment from 'moment';
-import createStream from '../../utils/streamCreation';
+import createStream from '../../utils/proofs/creationProof';
 
 import AddressInput from '../form/AddressInput';
 import ZkAssetSelect from '../form/ZkAssetSelect';
@@ -191,21 +191,23 @@ export default function CreateStreamDialog({
           </Button>
           <Button
             onClick={async (): Promise<void> => {
+              const startTime = parseInt(moment().add(5, 'minutes').format('X'), 10);
+              const stopTime = parseInt(
+                moment()
+                  .add(days, 'days')
+                  .add(hours, 'hours')
+                  .add(minutes + 5, 'minutes')
+                  .format('X'),
+                10,
+              );
               await createStream(
                 parseInt(streamAmount, 10),
+                zkAsset,
                 streamContractInstance,
                 userAddress,
                 recipient,
-                zkAsset,
-                parseInt(moment().add(5, 'minutes').format('X'), 10),
-                parseInt(
-                  moment()
-                    .add(days, 'days')
-                    .add(hours, 'hours')
-                    .add(minutes + 5, 'minutes')
-                    .format('X'),
-                  10,
-                ),
+                startTime,
+                stopTime,
               );
               handleClose();
             }}
