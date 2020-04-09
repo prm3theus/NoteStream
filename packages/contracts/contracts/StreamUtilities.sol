@@ -53,7 +53,7 @@ library StreamUtilities {
 
     function _processDeposit(
         bytes memory _proof,
-        bytes memory proofSignature,
+        bytes memory _proofSignature,
         address _aceContractAddress,
         address _sender,
         address _recipient,
@@ -65,7 +65,7 @@ library StreamUtilities {
             .get(0);
 
         // Extract notes used in proof
-        (bytes memory _proofInputNotes, bytes memory _proofOutputNotes, , ) = proofOutputs
+        (, bytes memory _proofOutputNotes, , ) = proofOutputs
             .extractProofOutput();
 
         // Ensure that there is only a single output note to avoid loss of funds
@@ -93,11 +93,12 @@ library StreamUtilities {
         );
 
         // Approve contract to spend stream note
-        IZkAsset(_tokenAddress).confidentialApprove(
-            _noteCoderToStruct(_proofInputNotes.get(0)).noteHash,
+        IZkAsset(_tokenAddress).approveProof(
+            JOIN_SPLIT_PROOF,
+            proofOutputs,
             address(this),
             true,
-            proofSignature
+            _proofSignature
         );
 
         // Send transfer
