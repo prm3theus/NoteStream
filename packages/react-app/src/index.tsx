@@ -4,7 +4,6 @@ import './index.css';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import OnboardProvider from './contexts/OnboardContext';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -14,11 +13,9 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <OnboardProvider>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </OnboardProvider>,
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
   document.getElementById('root'),
 );
 
