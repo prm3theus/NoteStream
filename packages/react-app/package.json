@@ -19,7 +19,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/react-copy-to-clipboard": "^4.3.0",
     "shx": "^0.3.2",
     "typescript": "^3.8.3"
   },
